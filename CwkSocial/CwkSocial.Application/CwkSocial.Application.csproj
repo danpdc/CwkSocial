@@ -7,7 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Posts\Commands\" />
+    <Folder Include="Posts\CommandHandlers\" />
+    <Folder Include="Posts\QueryHandlers\" />
+    <Folder Include="Posts\Queries\" />
+    <Folder Include="UserProfiles\QueryHandlers\" />
+    <Folder Include="UserProfiles\Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Cwk.Domain\Cwk.Domain.csproj" />
+    <ProjectReference Include="..\CwkSocial.Dal\CwkSocial.Dal.csproj" />
   </ItemGroup>
 
 </Project>
