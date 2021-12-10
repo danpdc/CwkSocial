@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cwk.Domain\Cwk.Domain.csproj" />
+    <ProjectReference Include="..\CwkSocial.Application\CwkSocial.Application.csproj" />
     <ProjectReference Include="..\CwkSocial.Dal\CwkSocial.Dal.csproj" />
   </ItemGroup>
 
