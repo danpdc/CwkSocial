@@ -1,4 +1,4 @@
-﻿namespace CwkSocial.Api.Contracts.UserProffile.Responses
+﻿namespace CwkSocial.Api.Contracts.UserProfile.Responses
 {
     public record UserProfileResponse
     {
