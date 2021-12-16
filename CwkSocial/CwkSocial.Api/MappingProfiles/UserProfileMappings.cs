@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Cwk.Domain.Aggregates.UserProfileAggregate;
-using CwkSocial.Api.Contracts.UserProffile.Requests;
-using CwkSocial.Api.Contracts.UserProffile.Responses;
+using CwkSocial.Api.Contracts.UserProfile.Requests;
+using CwkSocial.Api.Contracts.UserProfile.Responses;
 using CwkSocial.Application.UserProfiles.Commands;
 
 namespace CwkSocial.Api.MappingProfiles

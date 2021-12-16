@@ -1,6 +1,6 @@
-﻿namespace CwkSocial.Api.Contracts.UserProffile.Responses
+﻿namespace CwkSocial.Api.Contracts.UserProfile.Requests
 {
-    public record BasicInformation
+    public record UserProfileCreateUpdate
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
