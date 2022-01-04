@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Cwk.Domain.Aggregates.UserProfileAggregate;
+using Cwk.Domain.Exceptions;
+using Cwk.Domain.Validators.PostValidators;
 
 namespace Cwk.Domain.Aggregates.PostAggregate
 {
@@ -26,18 +28,39 @@ namespace Cwk.Domain.Aggregates.PostAggregate
         //Factories
         public static Post CreatePost(Guid userProfileId, string textContent)
         {
-            return new Post
+            var validator = new PostValidator();
+            var objectToValidate = new Post
             {
                 UserProfileId = userProfileId,
                 TextContent = textContent,
                 CreatedDate = DateTime.UtcNow,
                 LastModified = DateTime.UtcNow,
             };
+
+            var validationResult = validator.Validate(objectToValidate);
+            
+            if (validationResult.IsValid) return objectToValidate;
+
+            var exception = new PostNotValidException("Post is not valid");
+            validationResult.Errors.ForEach(vr => exception.ValidationErrors.Add(vr.ErrorMessage));
+            throw exception;
         }
 
         //public methods
+        /// <summary>
+        /// Updates the post text
+        /// </summary>
+        /// <param name="newText">The updated post text</param>
+        /// <exception cref="PostNotValidException"></exception>
         public void UpdatePostText(string newText)
         {
+            if (string.IsNullOrWhiteSpace(newText))
+            {
+                var exception = new PostNotValidException("Cannot update post." +
+                                                          "Post text is not valid");
+                exception.ValidationErrors.Add("The provided text is either null or contains only white space");
+                throw exception;
+            }
             TextContent = newText;
             LastModified = DateTime.UtcNow;
         }

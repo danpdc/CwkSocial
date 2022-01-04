@@ -14,17 +14,15 @@ public class ValidateGuidAttribute : ActionFilterAttribute
 
     public override void OnActionExecuting(ActionExecutingContext context)
     {
-        if (context.ActionArguments.TryGetValue(_key, out var value))
+        if (!context.ActionArguments.TryGetValue(_key, out var value)) return;
+        if (Guid.TryParse(value?.ToString(), out var guid)) return;
+        var apiError = new ErrorResponse
         {
-            if (!Guid.TryParse(value.ToString(), out var guid))
-            {
-                var apiError = new ErrorResponse();
-                apiError.StatusCode = 400;
-                apiError.StatusPhrase = "Bad Request";
-                apiError.Timestamp = DateTime.Now;
-                apiError.Errors.Add($"The identifier for {_key} is not a correct GUID format");
-                context.Result = new ObjectResult(apiError);
-            }
-        }
+            StatusCode = 400,
+            StatusPhrase = "Bad Request",
+            Timestamp = DateTime.Now
+        };
+        apiError.Errors.Add($"The identifier for {_key} is not a correct GUID format");
+        context.Result = new ObjectResult(apiError);
     }
 }

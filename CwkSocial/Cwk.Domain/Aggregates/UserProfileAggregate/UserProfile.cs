@@ -20,8 +20,6 @@ namespace Cwk.Domain.Aggregates.UserProfileAggregate
         // Factory method
         public static UserProfile CreateUserProfile(string identityId, BasicInfo basicInfo)
         {
-            // TO DO: add validation, errror handling strategies, error notification strategies
-
             return new UserProfile
             {
                 IdentityId = identityId,

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cwk.Domain.Exceptions;
 using CwkSocial.Application.Enums;
 using CwkSocial.Application.Models;
 
@@ -49,6 +50,19 @@ namespace CwkSocial.Application.UserProfiles.CommandHandlers
                 await _ctx.SaveChangesAsync();
                 
                 result.Payload = userProfile;
+                return result;
+            }
+            
+            catch (UserProfileNotValidException ex)
+            {
+                result.IsError = true;
+                ex.ValidationErrors.ForEach(e =>
+                {
+                    var error = new Error { Code = ErrorCode.ValidationError, 
+                        Message = $"{ex.Message}"};
+                    result.Errors.Add(error);
+                });
+                
                 return result;
             }
             
