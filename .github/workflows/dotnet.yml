@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ../../CwkSocial/
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ../../CwkSocial/ --no-restore
     - name: Test
-      run: dotnet test --no-build
+      run: dotnet test dotnet build ../../CwkSocial/ --no-restore --no-build
