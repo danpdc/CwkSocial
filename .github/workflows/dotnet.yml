@@ -22,4 +22,4 @@ jobs:
     - name: Build
       run: dotnet build CwkSocial --no-restore
     - name: Test
-      run: dotnet test dotnet build CwkSocial --no-restore --no-build
+      run: dotnet test CwkSocial --no-restore --no-build
