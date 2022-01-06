@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
-
-namespace CwkSocial.Api.Registrars
+﻿namespace CwkSocial.Api.Registrars
 {
     public class MvcWebAppRegistrar : IWebApplicationRegistrar
     {

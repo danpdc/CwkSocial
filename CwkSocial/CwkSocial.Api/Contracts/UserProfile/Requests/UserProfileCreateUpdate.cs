@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace CwkSocial.Api.Contracts.UserProfile.Requests
+﻿namespace CwkSocial.Api.Contracts.UserProfile.Requests
 {
     public record UserProfileCreateUpdate
     {

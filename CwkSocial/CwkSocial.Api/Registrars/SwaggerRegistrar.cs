@@ -1,6 +1,4 @@
-﻿using CwkSocial.Api.Options;
-
-namespace CwkSocial.Api.Registrars
+﻿namespace CwkSocial.Api.Registrars
 {
     public class SwaggerRegistrar : IWebApplicationBuilderRegistrar
     {
