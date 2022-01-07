@@ -21,7 +21,6 @@ public class ValidateModelAttribute : ActionFilterAttribute
             }
 
             context.Result = new BadRequestObjectResult(apiError);
-            // TO DO: Make sure Asp.NEt Core doesn't override our action result body
         }
     }
 }

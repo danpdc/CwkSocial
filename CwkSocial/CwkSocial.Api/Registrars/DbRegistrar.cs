@@ -1,4 +1,6 @@
-﻿namespace CwkSocial.Api.Registrars
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace CwkSocial.Api.Registrars
 {
     public class DbRegistrar : IWebApplicationBuilderRegistrar
     {
@@ -9,6 +11,9 @@
             {
                 options.UseSqlServer(cs);
             });
+
+            builder.Services.AddIdentityCore<IdentityUser>()
+                .AddEntityFrameworkStores<DataContext>();
 
         }
     }
