@@ -1,8 +1,4 @@
-﻿using CwkSocial.Api.Contracts.Common;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-
-namespace CwkSocial.Api.Filters;
+﻿namespace CwkSocial.Api.Filters;
 
 public class ValidateModelAttribute : ActionFilterAttribute
 {

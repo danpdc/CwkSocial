@@ -1,9 +1,4 @@
-﻿using CwkSocial.Api.Contracts.Common;
-using CwkSocial.Application.Enums;
-using CwkSocial.Application.Models;
-using Microsoft.AspNetCore.Mvc;
-
-namespace CwkSocial.Api.Controllers.V1;
+﻿namespace CwkSocial.Api.Controllers.V1;
 
 public class BaseController : ControllerBase
 {

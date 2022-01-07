@@ -1,7 +1,4 @@
-﻿using CwkSocial.Dal;
-using Microsoft.EntityFrameworkCore;
-
-namespace CwkSocial.Api.Registrars
+﻿namespace CwkSocial.Api.Registrars
 {
     public class DbRegistrar : IWebApplicationBuilderRegistrar
     {

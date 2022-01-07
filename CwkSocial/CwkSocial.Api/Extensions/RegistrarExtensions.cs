@@ -1,6 +1,4 @@
-﻿using CwkSocial.Api.Registrars;
-
-namespace CwkSocial.Api.Extensions
+﻿namespace CwkSocial.Api.Extensions
 {
     public static class RegistrarExtensions
     {

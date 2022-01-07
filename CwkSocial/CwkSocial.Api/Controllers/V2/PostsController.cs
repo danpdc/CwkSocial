@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace CwkSocial.Api.Controllers.V2
+﻿namespace CwkSocial.Api.Controllers.V2
 {
 
     [ApiVersion("2.0")]
