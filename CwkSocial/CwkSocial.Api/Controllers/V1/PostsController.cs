@@ -128,5 +128,23 @@
 
             return Ok(newComment);
         }
+
+        [HttpPatch]
+        [Route(ApiRoutes.Posts.PostComments)]
+        [ValidateGuid("postId")]
+        [ValidateGuid("commentId")]
+        public async Task<IActionResult> UpdatePostComment(string postId, string commentId, [FromBody] PostCommentUpdate updatedComment)
+        {
+            var command = new UpdatePostCommentText()
+            {
+                NewText = updatedComment.Text,
+                PostId = Guid.Parse(postId),
+                PostCommentId = Guid.Parse(commentId)
+            };
+
+            var result = await _mediator.Send(command);
+
+            return result.IsError ? HandleErrorResponse(result.Errors) : NoContent();
+        }
     }
 }
