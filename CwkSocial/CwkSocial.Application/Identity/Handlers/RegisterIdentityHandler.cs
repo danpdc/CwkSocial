@@ -1,4 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Cwk.Domain.Aggregates.UserProfileAggregate;
 using Cwk.Domain.Exceptions;
 using CwkSocial.Application.Enums;
@@ -9,6 +11,8 @@ using CwkSocial.Dal;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace CwkSocial.Application.Identity.Handlers;
 
@@ -48,11 +52,12 @@ public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, Operati
                 UserName = request.Username
             };
 
+            //creating transaction
             using var transaction = _ctx.Database.BeginTransaction();
-
             var createdIdentity = await _userManager.CreateAsync(identity, request.Password);
             if (!createdIdentity.Succeeded)
             {
+                await transaction.RollbackAsync();
                 result.IsError = true;
 
                 foreach (var identityError in createdIdentity.Errors)
@@ -63,19 +68,45 @@ public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, Operati
                 }
                 return result;
             }
-
+            
             var profileInfo = BasicInfo.CreateBasicInfo(request.FirstName, request.LastName, request.Username,
                 request.Phone, request.DateOfBirth, request.CurrentCity);
 
             var profile = UserProfile.CreateUserProfile(identity.Id, profileInfo);
-
-            _ctx.UserProfiles.Add(profile);
-            await _ctx.SaveChangesAsync();
-            await transaction.CommitAsync();
+            try
+            {
+                _ctx.UserProfiles.Add(profile);
+                await _ctx.SaveChangesAsync();
+                await transaction.CommitAsync();
+            }
+            catch (Exception e)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
             
-            //creating transaction
             var tokenHandler = new JwtSecurityTokenHandler();
-            
+            var key = Encoding.ASCII.GetBytes(_jwtSeetings.SigningKey);
+            var tokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Subject = new ClaimsIdentity( new Claim[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, identity.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Email, identity.Email),
+                    new Claim("IdentityId", identity.Id),
+                    new Claim("UserProfileId", profile.UserProfileId.ToString())
+                }),
+                Expires = DateTime.Now.AddHours(2),
+                Audience = _jwtSeetings.Audiences[0],
+                Issuer = _jwtSeetings.Issuer,
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            result.Payload = tokenHandler.WriteToken(token);
+            return result;
         }
         
         catch (UserProfileNotValidException ex)

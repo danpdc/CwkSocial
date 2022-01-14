@@ -12,7 +12,14 @@ namespace CwkSocial.Api.Registrars
                 options.UseSqlServer(cs);
             });
 
-            builder.Services.AddIdentityCore<IdentityUser>()
+            builder.Services.AddIdentityCore<IdentityUser>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = 5;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                })
                 .AddEntityFrameworkStores<DataContext>();
 
         }

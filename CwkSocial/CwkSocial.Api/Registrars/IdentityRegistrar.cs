@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Identity;
+
 namespace CwkSocial.Api.Registrars;
 
 public class IdentityRegistrar : IWebApplicationBuilderRegistrar

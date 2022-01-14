@@ -1,9 +1,12 @@
-﻿namespace CwkSocial.Api.Controllers.V1
+﻿using Microsoft.AspNetCore.Authorization;
+
+namespace CwkSocial.Api.Controllers.V1
 {
 
     [ApiVersion("1.0")]
     [Route(ApiRoutes.BaseRoute)]
     [ApiController]
+    [Authorize( AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class UserProfilesController : BaseController
     {
         private readonly IMediator _mediator;
