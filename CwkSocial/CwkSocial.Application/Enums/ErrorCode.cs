@@ -11,6 +11,8 @@ public enum ErrorCode
     //Infrastructure errors should be in the range 200-299
     IdentityUserAlreadyExists = 201,
     IdentityCreationFailed = 202,
+    IdentityUserDoesNotExist = 203,
+    IncorrectPassword = 204,
     
     UnknownError = 999
     
