@@ -54,8 +54,20 @@ namespace Cwk.Domain.Aggregates.PostAggregate
         }
 
         //public methods
+        /// <summary>
+        /// Updated the text content of a comment
+        /// </summary>
+        /// <param name="newText">The text content of the updated comment</param>
+        /// <exception cref="PostCommentNotValidException"></exception>
         public void UpdateCommentText(string newText)
         {
+            if (string.IsNullOrWhiteSpace(newText))
+            {
+                var exception = new PostCommentNotValidException("Cannot update comment." + "Comment text content is not valid");
+
+                exception.ValidationErrors.Add("The provided text is either null or contains only white space");
+                throw exception;
+            }
             Text = newText;
             LastModified = DateTime.UtcNow;
         }
