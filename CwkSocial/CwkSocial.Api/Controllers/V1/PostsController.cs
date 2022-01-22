@@ -4,6 +4,7 @@
     [ApiVersion("1.0")]
     [Route(ApiRoutes.BaseRoute)]
     [ApiController]
+    [Authorize( AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PostsController : BaseController
     {
         private readonly IMediator _mediator;
@@ -40,9 +41,11 @@
         [ValidateModel]
         public async Task<IActionResult> CreatePost([FromBody] PostCreate newPost)
         {
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+            
             var command = new CreatePost()
             {
-                UserProfileId = Guid.Parse(newPost.UserProfileId),
+                UserProfileId = userProfileId,
                 TextContent = newPost.TextContent
             };
 
@@ -59,10 +62,13 @@
         [ValidateModel]
         public async Task<IActionResult> UpdatePostText([FromBody] PostUpdate updatedPost, string id)
         {
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+            
             var command = new UpdatePostText()
             {
                 NewText = updatedPost.Text,
-                PostId = Guid.Parse(id)
+                PostId = Guid.Parse(id),
+                UserProfileId = userProfileId
             };
             var result = await _mediator.Send(command);
 
@@ -74,7 +80,8 @@
         [ValidateGuid("id")]
         public async Task<IActionResult> DeletePost(string id)
         {
-            var command = new DeletePost() {PostId = Guid.Parse(id)};
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+            var command = new DeletePost() {PostId = Guid.Parse(id), UserProfileId = userProfileId};
             var result = await _mediator.Send(command);
 
             return result.IsError ? HandleErrorResponse(result.Errors) : NoContent();

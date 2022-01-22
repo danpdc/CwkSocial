@@ -32,3 +32,5 @@ global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.IdentityModel.Tokens;
 global using CwkSocial.Api.Contracts.Identity;
 global using CwkSocial.Application.Identity.Commands;
+global using Microsoft.AspNetCore.Authorization;
+

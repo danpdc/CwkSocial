@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="MappingProfiles" />
     <Folder Include="Posts\Commands\" />
     <Folder Include="Posts\CommandHandlers\" />
     <Folder Include="Posts\QueryHandlers\" />

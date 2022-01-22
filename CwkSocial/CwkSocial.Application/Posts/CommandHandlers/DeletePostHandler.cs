@@ -33,6 +33,15 @@ public class DeletePostHandler : IRequestHandler<DeletePost, OperationResult<Pos
                 return result;
             }
 
+            if (post.UserProfileId != request.UserProfileId)
+            {
+                result.IsError = true;
+                var error = new Error { Code = ErrorCode.PostDeleteNotPossible, 
+                    Message = $"Only the owner of a post can delete it"};
+                result.Errors.Add(error);
+                return result;
+            }
+
             _ctx.Posts.Remove(post);
             await _ctx.SaveChangesAsync();
 

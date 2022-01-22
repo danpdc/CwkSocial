@@ -9,7 +9,7 @@ using CwkSocial.Dal;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage;
-using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace CwkSocial.Application.Identity.Handlers;
 
@@ -43,17 +43,7 @@ public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, Operati
             var profile = await CreateUserProfileAsync(result, request, transaction, identity);
             await transaction.CommitAsync();
 
-            var claimsIdentity = new ClaimsIdentity(new Claim[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, identity.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, identity.Email),
-                new Claim("IdentityId", identity.Id),
-                new Claim("UserProfileId", profile.UserProfileId.ToString())
-            });
-
-            var token = _identityService.CreateSecurityToken(claimsIdentity);
-            result.Payload = _identityService.WriteToken(token);
+            result.Payload = GetJwtString(identity, profile);
             return result;
         }
         
@@ -136,5 +126,20 @@ public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, Operati
             await transaction.RollbackAsync();
             throw;
         }
+    }
+
+    private string GetJwtString(IdentityUser identity, UserProfile profile)
+    {
+        var claimsIdentity = new ClaimsIdentity(new Claim[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, identity.Email),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, identity.Email),
+            new Claim("IdentityId", identity.Id),
+            new Claim("UserProfileId", profile.UserProfileId.ToString())
+        });
+
+        var token = _identityService.CreateSecurityToken(claimsIdentity);
+        return _identityService.WriteToken(token);
     }
 }

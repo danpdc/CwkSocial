@@ -14,6 +14,11 @@ public enum ErrorCode
     IdentityUserDoesNotExist = 203,
     IncorrectPassword = 204,
     
+    //Application errors should be in the range 300 - 399
+    PostUpdateNotPossible = 300,
+    PostDeleteNotPossible = 301,
+    
+
     UnknownError = 999
     
     
