@@ -28,7 +28,7 @@ namespace CwkSocial.Application.UserProfiles.QueryHandlers
             var result = new OperationResult<UserProfile>();
             
             var profile = await _ctx.UserProfiles
-                .FirstOrDefaultAsync(up => up.UserProfileId == request.UserProfileId);
+                .FirstOrDefaultAsync(up => up.UserProfileId == request.UserProfileId, cancellationToken: cancellationToken);
             
             if (profile is null)
             {

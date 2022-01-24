@@ -17,10 +17,10 @@ public class IdentityController : BaseController
     [HttpPost]
     [Route(ApiRoutes.Identity.Registration)]
     [ValidateModel]
-    public async Task<IActionResult> Register(UserRegistration registration)
+    public async Task<IActionResult> Register(UserRegistration registration, CancellationToken cancellationToken)
     {
         var command = _mapper.Map<RegisterIdentity>(registration);
-        var result = await _mediator.Send(command);
+        var result = await _mediator.Send(command, cancellationToken);
 
         if (result.IsError) return HandleErrorResponse(result.Errors);
 
@@ -32,10 +32,10 @@ public class IdentityController : BaseController
     [HttpPost]
     [Route(ApiRoutes.Identity.Login)]
     [ValidateModel]
-    public async Task<IActionResult> Login(Login login)
+    public async Task<IActionResult> Login(Login login, CancellationToken cancellationToken)
     {
         var command = _mapper.Map<LoginCommand>(login);
-        var result = await _mediator.Send(command);
+        var result = await _mediator.Send(command, cancellationToken);
 
         if (result.IsError) return HandleErrorResponse(result.Errors);
 
