@@ -23,7 +23,7 @@ public class AddPostCommentHandler : IRequestHandler<AddPostComment, OperationRe
 
         try
         {
-            var post = await _ctx.Posts.FirstOrDefaultAsync(p => p.PostId == request.PostId);
+            var post = await _ctx.Posts.FirstOrDefaultAsync(p => p.PostId == request.PostId, cancellationToken: cancellationToken);
             if (post is null)
             {
                 result.IsError = true;
@@ -41,7 +41,7 @@ public class AddPostCommentHandler : IRequestHandler<AddPostComment, OperationRe
             post.AddPostComment(comment);
 
             _ctx.Posts.Update(post);
-            await _ctx.SaveChangesAsync();
+            await _ctx.SaveChangesAsync(cancellationToken);
 
             result.Payload = comment;
 

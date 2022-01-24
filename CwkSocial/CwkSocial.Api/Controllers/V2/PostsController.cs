@@ -9,7 +9,7 @@
 
         [HttpGet]
         [Route("{id}")]
-        public IActionResult GetById(int id)
+        public IActionResult GetById(int id, CancellationToken cancellationToken)
         {
             return Ok();
         }

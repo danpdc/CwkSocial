@@ -16,9 +16,9 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllPosts()
+        public async Task<IActionResult> GetAllPosts(CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetAllPosts());
+            var result = await _mediator.Send(new GetAllPosts(), cancellationToken);
             var mapped = _mapper.Map<List<PostResponse>>(result.Payload);
             return result.IsError ? HandleErrorResponse(result.Errors) :  Ok(mapped); 
             
@@ -27,11 +27,11 @@
         [HttpGet]
         [Route(ApiRoutes.Posts.IdRoute)]
         [ValidateGuid("id")]
-        public async Task<IActionResult> GetById(string id)
+        public async Task<IActionResult> GetById(string id, CancellationToken cancellationToken)
         {
             var postId = Guid.Parse(id);
             var query = new GetPostById() {PostId = postId};
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(query, cancellationToken);
             var mapped = _mapper.Map<PostResponse>(result.Payload);
 
             return result.IsError ? HandleErrorResponse(result.Errors) : Ok(mapped);
@@ -39,7 +39,7 @@
 
         [HttpPost]
         [ValidateModel]
-        public async Task<IActionResult> CreatePost([FromBody] PostCreate newPost)
+        public async Task<IActionResult> CreatePost([FromBody] PostCreate newPost, CancellationToken cancellationToken)
         {
             var userProfileId = HttpContext.GetUserProfileIdClaimValue();
             
@@ -49,7 +49,7 @@
                 TextContent = newPost.TextContent
             };
 
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
             var mapped = _mapper.Map<PostResponse>(result.Payload);
             
             return result.IsError ? HandleErrorResponse(result.Errors) 
@@ -60,7 +60,7 @@
         [Route(ApiRoutes.Posts.IdRoute)]
         [ValidateGuid("id")]
         [ValidateModel]
-        public async Task<IActionResult> UpdatePostText([FromBody] PostUpdate updatedPost, string id)
+        public async Task<IActionResult> UpdatePostText([FromBody] PostUpdate updatedPost, string id, CancellationToken cancellationToken)
         {
             var userProfileId = HttpContext.GetUserProfileIdClaimValue();
             
@@ -70,7 +70,7 @@
                 PostId = Guid.Parse(id),
                 UserProfileId = userProfileId
             };
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
 
             return result.IsError ? HandleErrorResponse(result.Errors) : NoContent();
         }
@@ -78,11 +78,11 @@
         [HttpDelete]
         [Route(ApiRoutes.Posts.IdRoute)]
         [ValidateGuid("id")]
-        public async Task<IActionResult> DeletePost(string id)
+        public async Task<IActionResult> DeletePost(string id, CancellationToken cancellationToken)
         {
             var userProfileId = HttpContext.GetUserProfileIdClaimValue();
             var command = new DeletePost() {PostId = Guid.Parse(id), UserProfileId = userProfileId};
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
 
             return result.IsError ? HandleErrorResponse(result.Errors) : NoContent();
         }
@@ -90,10 +90,10 @@
         [HttpGet]
         [Route(ApiRoutes.Posts.PostComments)]
         [ValidateGuid("postId")]
-        public async Task<IActionResult> GetCommentsByPostId(string postId)
+        public async Task<IActionResult> GetCommentsByPostId(string postId, CancellationToken cancellationToken)
         {
             var query = new GetPostComments() {PostId = Guid.Parse(postId)};
-            var result = await _mediator.Send(query);
+            var result = await _mediator.Send(query, cancellationToken);
 
             if (result.IsError)  HandleErrorResponse(result.Errors);
 
@@ -105,7 +105,7 @@
         [Route(ApiRoutes.Posts.PostComments)]
         [ValidateGuid("postId")]
         [ValidateModel]
-        public async Task<IActionResult> AddCommentToPost(string postId, [FromBody] PostCommentCreate comment)
+        public async Task<IActionResult> AddCommentToPost(string postId, [FromBody] PostCommentCreate comment, CancellationToken cancellationToken)
         {
             var isValidGuid = Guid.TryParse(comment.UserProfileId, out var userProfileId);
             if (!isValidGuid)
@@ -127,7 +127,7 @@
                 CommentText = comment.Text
             };
 
-            var result = await _mediator.Send(command);
+            var result = await _mediator.Send(command, cancellationToken);
 
             if (result.IsError) return HandleErrorResponse(result.Errors);
 

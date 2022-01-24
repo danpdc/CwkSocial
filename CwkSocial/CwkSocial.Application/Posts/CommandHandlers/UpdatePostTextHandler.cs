@@ -24,7 +24,7 @@ public class UpdatePostTextHandler : IRequestHandler<UpdatePostText, OperationRe
 
         try
         {
-            var post = await _ctx.Posts.FirstOrDefaultAsync(p => p.PostId == request.PostId);
+            var post = await _ctx.Posts.FirstOrDefaultAsync(p => p.PostId == request.PostId, cancellationToken: cancellationToken);
             
             if (post is null)
             {
@@ -46,7 +46,7 @@ public class UpdatePostTextHandler : IRequestHandler<UpdatePostText, OperationRe
             
             post.UpdatePostText(request.NewText);
 
-            await _ctx.SaveChangesAsync();
+            await _ctx.SaveChangesAsync(cancellationToken);
 
             result.Payload = post;
         }

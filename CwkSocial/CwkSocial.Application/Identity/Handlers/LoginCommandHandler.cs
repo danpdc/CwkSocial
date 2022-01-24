@@ -34,7 +34,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, OperationResult
             if (identityUser == null) return result;
 
             var userProfile = await _ctx.UserProfiles
-                .FirstOrDefaultAsync(up => up.IdentityId == identityUser.Id);
+                .FirstOrDefaultAsync(up => up.IdentityId == identityUser.Id, cancellationToken: cancellationToken);
 
             result.Payload = GetJwtString(identityUser, userProfile);
             return result;

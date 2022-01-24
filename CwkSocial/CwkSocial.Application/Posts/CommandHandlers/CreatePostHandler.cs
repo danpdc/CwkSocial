@@ -24,7 +24,7 @@ public class CreatePostHandler : IRequestHandler<CreatePost, OperationResult<Pos
         {
             var post = Post.CreatePost(request.UserProfileId, request.TextContent);
             _ctx.Posts.Add(post);
-            await _ctx.SaveChangesAsync();
+            await _ctx.SaveChangesAsync(cancellationToken);
 
             result.Payload = post;
         }
