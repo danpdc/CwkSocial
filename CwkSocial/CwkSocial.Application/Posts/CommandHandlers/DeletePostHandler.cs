@@ -26,19 +26,15 @@ public class DeletePostHandler : IRequestHandler<DeletePost, OperationResult<Pos
             
             if (post is null)
             {
-                result.IsError = true;
-                var error = new Error { Code = ErrorCode.NotFound, 
-                    Message = $"No post found with ID {request.PostId}"};
-                result.Errors.Add(error);
+                result.AddError(ErrorCode.NotFound, 
+                    string.Format(PostsErrorMessages.PostNotFound, request.PostId));
+                
                 return result;
             }
 
             if (post.UserProfileId != request.UserProfileId)
             {
-                result.IsError = true;
-                var error = new Error { Code = ErrorCode.PostDeleteNotPossible, 
-                    Message = $"Only the owner of a post can delete it"};
-                result.Errors.Add(error);
+                result.AddError(ErrorCode.PostDeleteNotPossible, PostsErrorMessages.PostDeleteNotPossible);
                 return result;
             }
 
@@ -49,10 +45,7 @@ public class DeletePostHandler : IRequestHandler<DeletePost, OperationResult<Pos
         }
         catch (Exception e)
         {
-            var error = new Error { Code = ErrorCode.UnknownError, 
-                Message = $"{e.Message}"};
-            result.IsError = true;
-            result.Errors.Add(error);
+            result.AddUnknownError(e.Message);
         }
 
         return result;

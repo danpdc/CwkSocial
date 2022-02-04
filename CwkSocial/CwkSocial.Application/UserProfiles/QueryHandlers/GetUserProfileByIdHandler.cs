@@ -3,11 +3,6 @@ using CwkSocial.Application.UserProfiles.Queries;
 using CwkSocial.Dal;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CwkSocial.Application.Enums;
 using CwkSocial.Application.Models;
 
@@ -32,10 +27,8 @@ namespace CwkSocial.Application.UserProfiles.QueryHandlers
             
             if (profile is null)
             {
-                result.IsError = true;
-                var error = new Error { Code = ErrorCode.NotFound, 
-                    Message = $"No UserProfile found with ID {request.UserProfileId}"};
-                result.Errors.Add(error);
+                result.AddError(ErrorCode.NotFound,
+                    string.Format(UserProfilesErrorMessages.UserProfileNotFound, request.UserProfileId));
                 return result;
             }
 
