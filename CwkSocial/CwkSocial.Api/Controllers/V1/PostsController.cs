@@ -1,4 +1,6 @@
-﻿namespace CwkSocial.Api.Controllers.V1
+﻿using PostInteraction = CwkSocial.Api.Contracts.Posts.Responses.PostInteraction;
+
+namespace CwkSocial.Api.Controllers.V1
 {
 
     [ApiVersion("1.0")]
@@ -134,6 +136,46 @@
             var newComment = _mapper.Map<PostCommentResponse>(result.Payload);
 
             return Ok(newComment);
+        }
+
+        [HttpGet]
+        [Route(ApiRoutes.Posts.PostInteractions)]
+        [ValidateGuid("postId")]
+        public async Task<IActionResult> GetPostInteractions(string postId, CancellationToken token)
+        {
+            var postGuid = Guid.Parse(postId);
+            var query = new GetPostInteractions {PostId = postGuid};
+            var result = await _mediator.Send(query, token);
+
+            if (result.IsError) HandleErrorResponse(result.Errors);
+
+            var mapped = _mapper.Map<List<PostInteraction>>(result.Payload);
+            return Ok(mapped);
+        }
+
+        [HttpPost]
+        [Route(ApiRoutes.Posts.PostInteractions)]
+        [ValidateGuid("postId")]
+        [ValidateModel]
+        public async Task<IActionResult> AddPostInteraction(string postId, PostInteractionCreate interaction,
+            CancellationToken token)
+        {
+            var postGuid = Guid.Parse(postId);
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+            var command = new AddInteraction
+            {
+                PostId = postGuid,
+                UserProfileId = userProfileId,
+                Type = interaction.Type
+            };
+
+            var result = await _mediator.Send(command, token);
+
+            if (result.IsError) HandleErrorResponse(result.Errors);
+
+            var mapped = _mapper.Map<PostInteraction>(result.Payload);
+
+            return Ok(mapped);
         }
     }
 }
