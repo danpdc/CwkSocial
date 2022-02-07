@@ -53,19 +53,5 @@ namespace CwkSocial.Api.Controllers.V1
 
             return response.IsError ? HandleErrorResponse(response.Errors) : NoContent();
         }
-
-        //Maybe this should go thorugh the identity controller.
-        //When an identity is deleted, then also the associated user profile should be deleted
-        //Maybe open a GH issue for that. 
-        [HttpDelete]
-        [Route(ApiRoutes.UserProfiles.IdRoute)]
-        [ValidateGuid("id")]
-        public async Task<IActionResult> DeleteUserProfile(string id, CancellationToken cancellationToken)
-        {
-            var command = new DeleteUserProfile() { UserProfileId = Guid.Parse(id)};
-            var response = await _mediator.Send(command, cancellationToken);
-
-            return response.IsError ? HandleErrorResponse(response.Errors) : NoContent();
-        }
     }
 }

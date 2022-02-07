@@ -7,4 +7,7 @@ public class PostsErrorMessages
 
     public const string PostUpdateNotPossible =
         "Post update not possible because it's not the post owner that initiates the update";
+
+    public const string PostInteractionNotFound = "Interaction not found";
+    public const string InteractionRemovalNotAuthorized = "Cannot remove interaction as you are not its author";
 }

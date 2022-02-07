@@ -43,4 +43,24 @@ public class IdentityController : BaseController
         
         return Ok(authenticationResult);
     }
+
+    [HttpDelete]
+    [Route(ApiRoutes.Identity.IdentityById)]
+    [ValidateGuid("identityUserId")]
+    [Authorize( AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    public async Task<IActionResult> DeleteAccount(string identityUserId, CancellationToken token)
+    {
+        var identityUserGuid = Guid.Parse(identityUserId);
+        var requestorGuid = HttpContext.GetIdentityIdClaimValue();
+        var command = new RemoveAccount
+        {
+            IdentityUserId = identityUserGuid,
+            RequestorGuid = requestorGuid
+        };
+        var result = await _mediator.Send(command, token);
+
+        if (result.IsError) return HandleErrorResponse(result.Errors);
+        
+        return NoContent();
+    }
 }
