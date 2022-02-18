@@ -5,7 +5,6 @@ using CwkSocial.Application.Posts.Commands;
 using CwkSocial.Dal;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Update;
 
 namespace CwkSocial.Application.Posts.CommandHandlers;
 

@@ -5,17 +5,9 @@ namespace CwkSocial.Api.Filters;
 public class ValidateGuidAttribute : ActionFilterAttribute
 {
     private readonly List<string> _keys;
-    public ValidateGuidAttribute(string key)
+    public ValidateGuidAttribute(params string[] keys)
     {
-        _keys = new List<string>();
-        _keys.Add(key);
-    }
-
-    public ValidateGuidAttribute(string key1, string key2)
-    {
-        _keys = new List<string>();
-        _keys.Add(key1);
-        _keys.Add(key2);
+        _keys = keys.ToList();
     }
 
     public override void OnActionExecuting(ActionExecutingContext context)

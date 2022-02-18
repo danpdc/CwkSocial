@@ -107,7 +107,8 @@ namespace CwkSocial.Api.Controllers.V1
         [Route(ApiRoutes.Posts.PostComments)]
         [ValidateGuid("postId")]
         [ValidateModel]
-        public async Task<IActionResult> AddCommentToPost(string postId, [FromBody] PostCommentCreate comment, CancellationToken cancellationToken)
+        public async Task<IActionResult> AddCommentToPost(string postId, [FromBody] PostCommentCreate comment, 
+            CancellationToken cancellationToken)
         {
             var isValidGuid = Guid.TryParse(comment.UserProfileId, out var userProfileId);
             if (!isValidGuid)
@@ -136,6 +137,55 @@ namespace CwkSocial.Api.Controllers.V1
             var newComment = _mapper.Map<PostCommentResponse>(result.Payload);
 
             return Ok(newComment);
+        }
+
+        [HttpDelete]
+        [Route(ApiRoutes.Posts.CommentById)]
+        [ValidateGuid("postId", "commentId")]
+        public async Task<IActionResult> RemoveCommentFromPost(string postId, string commentId,
+            CancellationToken token)
+        {
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+            var postGuid = Guid.Parse(postId);
+            var commentGuid = Guid.Parse(commentId);
+            var command = new RemoveCommentFromPost
+            {
+                UserProfileId = userProfileId,
+                CommentId = commentGuid,
+                PostId = postGuid
+            };
+
+            var result = await _mediator.Send(command, token);
+
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+            
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Route(ApiRoutes.Posts.CommentById)]
+        [ValidateGuid("postId", "commentId")]
+        [ValidateModel]
+        public async Task<IActionResult> UpdateCommentText(string postId, string commentId,
+            PostCommentUpdate updatedComment, CancellationToken token)
+        {
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
+            var postGuid = Guid.Parse(postId);
+            var commentGuid = Guid.Parse(commentId);
+
+            var command = new UpdatePostComment
+            {
+                UserProfileId = userProfileId,
+                PostId = postGuid,
+                CommentId = commentGuid,
+                UpdatedText = updatedComment.Text
+            };
+
+            var result = await _mediator.Send(command, token);
+
+            if (result.IsError) return HandleErrorResponse(result.Errors);
+            
+            return NoContent();
         }
 
         [HttpGet]

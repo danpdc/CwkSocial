@@ -10,4 +10,6 @@ public class PostsErrorMessages
 
     public const string PostInteractionNotFound = "Interaction not found";
     public const string InteractionRemovalNotAuthorized = "Cannot remove interaction as you are not its author";
+    public const string PostCommentNotFound = "Comment not found";
+    public const string CommentRemovalNotAuthorized = "Cannot remove comment from post as you are not its author";
 }
