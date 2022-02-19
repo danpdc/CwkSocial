@@ -1,30 +1,25 @@
-﻿namespace CwkSocial.Api.Controllers.V1;
+﻿using CwkSocial.Api.Services.JWTService;
+
+namespace CwkSocial.Api.Controllers.V1;
 
 [ApiVersion("1.0")]
 [Route(ApiRoutes.BaseRoute)]
 [ApiController]
 public class IdentityController : BaseController
 {
-    private readonly IMediator _mediator;
-    private readonly IMapper _mapper;
-
-    public IdentityController(IMediator mediator, IMapper mapper)
-    {
-        _mediator = mediator;
-        _mapper = mapper;
-    }
 
     [HttpPost]
     [Route(ApiRoutes.Identity.Registration)]
     [ValidateModel]
-    public async Task<IActionResult> Register(UserRegistration registration, CancellationToken cancellationToken)
+    public async Task<IActionResult> Register(UserRegistration registration, CancellationToken cancellationToken, [FromServices] IJWTService jwtService)
     {
-        var command = _mapper.Map<RegisterIdentity>(registration);
-        var result = await _mediator.Send(command, cancellationToken);
+        var command = Mapper.Map<RegisterIdentity>(registration);
+        var result = await Mediator.Send(command, cancellationToken);
 
         if (result.IsError) return HandleErrorResponse(result.Errors);
 
-        var authenticationResult = new AuthenticationResult() { Token = result.Payload};
+        var jwt = jwtService.GetJwtString(result.Payload.IdentityUser, result.Payload.UserProfile);
+        var authenticationResult = new AuthenticationResult(jwt);
         
         return Ok(authenticationResult);
     }
@@ -32,14 +27,15 @@ public class IdentityController : BaseController
     [HttpPost]
     [Route(ApiRoutes.Identity.Login)]
     [ValidateModel]
-    public async Task<IActionResult> Login(Login login, CancellationToken cancellationToken)
+    public async Task<IActionResult> Login(Login login, CancellationToken cancellationToken, [FromServices] IJWTService jwtService)
     {
-        var command = _mapper.Map<LoginCommand>(login);
-        var result = await _mediator.Send(command, cancellationToken);
+        var command = Mapper.Map<LoginCommand>(login);
+        var result = await Mediator.Send(command, cancellationToken);
 
         if (result.IsError) return HandleErrorResponse(result.Errors);
 
-        var authenticationResult = new AuthenticationResult { Token = result.Payload};
+        var jwt=jwtService.GetJwtString(result.Payload.IdentityUser,result.Payload.UserProfile);
+        var authenticationResult = new AuthenticationResult(jwt);
         
         return Ok(authenticationResult);
     }
@@ -57,7 +53,7 @@ public class IdentityController : BaseController
             IdentityUserId = identityUserGuid,
             RequestorGuid = requestorGuid
         };
-        var result = await _mediator.Send(command, token);
+        var result = await Mediator.Send(command, token);
 
         if (result.IsError) return HandleErrorResponse(result.Errors);
         

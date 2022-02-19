@@ -10,6 +10,7 @@ public enum ErrorCode
     
     //Infrastructure errors should be in the range 200-299
     IdentityCreationFailed = 202,
+    UserProfileNotFound = 203,
 
     //Application errors should be in the range 300 - 399
     PostUpdateNotPossible = 300,
@@ -22,7 +23,5 @@ public enum ErrorCode
     CommentRemovalNotAuthorized = 307,
     
 
-    UnknownError = 999
-    
-    
+    UnknownError = 999,
 }

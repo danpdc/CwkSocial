@@ -1,4 +1,5 @@
 ﻿
+using CwkSocial.Api.Services.JWTService;
 using Microsoft.AspNetCore.Identity;
 
 namespace CwkSocial.Api.Registrars;
@@ -12,6 +13,8 @@ public class IdentityRegistrar : IWebApplicationBuilderRegistrar
 
         var jwtSection = builder.Configuration.GetSection(nameof(JwtSettings));
         builder.Services.Configure<JwtSettings>(jwtSection);
+
+        builder.Services.AddScoped<IJWTService, JWTService>();
 
         builder.Services
             .AddAuthentication(a =>

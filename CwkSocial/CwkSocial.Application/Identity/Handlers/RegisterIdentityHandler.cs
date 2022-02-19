@@ -1,49 +1,45 @@
-﻿using System.Security.Claims;
-using Cwk.Domain.Aggregates.UserProfileAggregate;
+﻿using Cwk.Domain.Aggregates.UserProfileAggregate;
 using Cwk.Domain.Exceptions;
 using CwkSocial.Application.Enums;
 using CwkSocial.Application.Identity.Commands;
 using CwkSocial.Application.Models;
-using CwkSocial.Application.Services;
+using CwkSocial.Application.Models.Identity;
 using CwkSocial.Dal;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Storage;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace CwkSocial.Application.Identity.Handlers;
 
-public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, OperationResult<string>>
+public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, OperationResult<RegisterResponse>>
 {
     private readonly DataContext _ctx;
     private readonly UserManager<IdentityUser> _userManager;
-    private readonly IdentityService _identityService;
     
-    public RegisterIdentityHandler(DataContext ctx, UserManager<IdentityUser> userManager,
-        IdentityService identityService)
+    
+    public RegisterIdentityHandler(DataContext ctx, UserManager<IdentityUser> userManager)
     {
         _ctx = ctx;
         _userManager = userManager;
-        _identityService = identityService;
     }
     
-    public async Task<OperationResult<string>> Handle(RegisterIdentity request, CancellationToken cancellationToken)
+    public async Task<OperationResult<RegisterResponse>> Handle(RegisterIdentity request, CancellationToken cancellationToken)
     {
-        var result = new OperationResult<string>();
+        var result = new OperationResult<RegisterResponse>();
         try
         {
-            await ValidateIdentityDoesNotExist(result, request);
+            await validateIdentityDoesNotExist(result, request);
             if (result.IsError) return result;
             
             await using var transaction = await _ctx.Database.BeginTransactionAsync(cancellationToken);
             
-            var identity = await CreateIdentityUserAsync(result, request, transaction, cancellationToken);
+            var identity = await createIdentityUserAsync(result, request, transaction, cancellationToken);
             if (result.IsError) return result;
 
-            var profile = await CreateUserProfileAsync(result, request, transaction, identity, cancellationToken);
+            var profile = await createUserProfileAsync(result, request, transaction, identity, cancellationToken);
             await transaction.CommitAsync(cancellationToken);
 
-            result.Payload = GetJwtString(identity, profile);
+            result.Payload = new RegisterResponse(identity, profile);
             return result;
         }
         
@@ -60,7 +56,7 @@ public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, Operati
         return result;
     }
 
-    private async Task ValidateIdentityDoesNotExist(OperationResult<string> result,
+    private async Task validateIdentityDoesNotExist(OperationResult<RegisterResponse> result,
         RegisterIdentity request)
     {
         var existingIdentity = await _userManager.FindByEmailAsync(request.Username);
@@ -70,7 +66,7 @@ public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, Operati
         
     }
 
-    private async Task<IdentityUser> CreateIdentityUserAsync(OperationResult<string> result,
+    private async Task<IdentityUser> createIdentityUserAsync(OperationResult<RegisterResponse> result,
         RegisterIdentity request, IDbContextTransaction transaction, CancellationToken cancellationToken)
     {
         var identity = new IdentityUser {Email = request.Username, UserName = request.Username};
@@ -87,7 +83,7 @@ public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, Operati
         return identity;
     }
 
-    private async Task<UserProfile> CreateUserProfileAsync(OperationResult<string> result,
+    private async Task<UserProfile> createUserProfileAsync(OperationResult<RegisterResponse> result,
         RegisterIdentity request, IDbContextTransaction transaction, IdentityUser identity,
         CancellationToken cancellationToken)
     {
@@ -108,18 +104,4 @@ public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, Operati
         }
     }
 
-    private string GetJwtString(IdentityUser identity, UserProfile profile)
-    {
-        var claimsIdentity = new ClaimsIdentity(new Claim[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, identity.Email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(JwtRegisteredClaimNames.Email, identity.Email),
-            new Claim("IdentityId", identity.Id),
-            new Claim("UserProfileId", profile.UserProfileId.ToString())
-        });
-
-        var token = _identityService.CreateSecurityToken(claimsIdentity);
-        return _identityService.WriteToken(token);
-    }
 }
