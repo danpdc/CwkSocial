@@ -110,19 +110,8 @@ namespace CwkSocial.Api.Controllers.V1
         public async Task<IActionResult> AddCommentToPost(string postId, [FromBody] PostCommentCreate comment, 
             CancellationToken cancellationToken)
         {
-            var isValidGuid = Guid.TryParse(comment.UserProfileId, out var userProfileId);
-            if (!isValidGuid)
-            {
-                var apiError = new ErrorResponse();
+            var userProfileId = HttpContext.GetUserProfileIdClaimValue();
 
-                apiError.StatusCode = 400;
-                apiError.StatusPhrase = "Bad Request";
-                apiError.Timestamp = DateTime.Now;
-                apiError.Errors.Add("Provided User profile id is not in a valid Guid format");
-
-                return BadRequest(apiError);
-            }
-            
             var command = new AddPostComment()
             {
                 PostId = Guid.Parse(postId),
