@@ -1,6 +1,7 @@
 ﻿using Cwk.Domain.Aggregates.PostAggregate;
 using Cwk.Domain.Aggregates.UserProfileAggregate;
 using CwkSocial.Dal.Configurations;
+using CwkSocial.Dal.Extensions;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +18,8 @@ namespace CwkSocial.Dal
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new PostCommentConfig());
-            modelBuilder.ApplyConfiguration(new PostInteractionConfig());
-            modelBuilder.ApplyConfiguration(new UserProfileConfig());
-            modelBuilder.ApplyConfiguration(new IdentityUserLoginConfig());
-            modelBuilder.ApplyConfiguration(new IdentityUserRoleConfig());
-            modelBuilder.ApplyConfiguration(new IdentityUserTokenConfig());
+            modelBuilder.ApplyAllConfigurations();
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
