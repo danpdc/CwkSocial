@@ -2,21 +2,10 @@
 
 namespace CwkSocial.Api.Controllers.V1
 {
-
-    [ApiVersion("1.0")]
-    [Route(ApiRoutes.BaseRoute)]
-    [ApiController]
+    
     [Authorize( AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class PostsController : BaseController
     {
-        private readonly IMediator _mediator;
-        private readonly IMapper _mapper;
-        public PostsController(IMediator mediator, IMapper mapper)
-        {
-            _mediator = mediator;
-            _mapper = mapper;
-        }
-
         [HttpGet]
         public async Task<IActionResult> GetAllPosts(CancellationToken cancellationToken)
         {
