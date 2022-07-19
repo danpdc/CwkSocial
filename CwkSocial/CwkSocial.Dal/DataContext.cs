@@ -18,7 +18,13 @@ namespace CwkSocial.Dal
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyAllConfigurations();
+            //modelBuilder.ApplyAllConfigurations();
+            modelBuilder.ApplyConfiguration(new PostCommentConfig());
+            modelBuilder.ApplyConfiguration(new PostInteractionConfig());
+            modelBuilder.ApplyConfiguration(new UserProfileConfig());
+            //modelBuilder.ApplyConfiguration(new IdentityUserLoginConfig());
+            //modelBuilder.ApplyConfiguration(new IdentityUserRoleConfig());
+            //modelBuilder.ApplyConfiguration(new IdentityUserTokenConfig());
             base.OnModelCreating(modelBuilder);
         }
     }
