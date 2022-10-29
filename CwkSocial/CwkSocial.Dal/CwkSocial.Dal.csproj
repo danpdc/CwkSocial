@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Cwk.Domain\Cwk.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
