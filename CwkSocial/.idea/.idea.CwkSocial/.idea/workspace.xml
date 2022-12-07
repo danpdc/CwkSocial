@@ -20,8 +20,11 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3520bf5c151bbc5aed94ba6abea697eaaee2b96fe96341613fef02be1cc54/ValidationFailure.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/50d48c72348032cda82923ba4a156c39ab9cba1c5950db22254d2a86ecd812/TypedResults.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d9e77e9a121f8de93ad49a81abbdedd7be266aae6476cb036d864bc76646/ExceptionFilterAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c7155a2ad5b4273408c55145d0a47dff826a7f8483c5ec69e58b4b86466/ActionFilterAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CwkSocial.Application/Identity/QueryHandlers/GetCurrentUserHandler.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -130,7 +133,15 @@
       <workItem from="1667644642030" duration="3513000" />
       <workItem from="1668546562075" duration="2516000" />
       <workItem from="1668623989971" duration="612000" />
-      <workItem from="1669135378142" duration="670000" />
+      <workItem from="1669135378142" duration="2318000" />
+      <workItem from="1669142121496" duration="8950000" />
+      <workItem from="1669529320039" duration="98000" />
+      <workItem from="1669727380910" duration="59000" />
+      <workItem from="1669828406561" duration="14896000" />
+      <workItem from="1670012011086" duration="10568000" />
+      <workItem from="1670144810602" duration="662000" />
+      <workItem from="1670180714573" duration="9597000" />
+      <workItem from="1670435449428" duration="713000" />
     </task>
     <servers />
   </component>

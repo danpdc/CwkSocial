@@ -19,6 +19,7 @@ namespace CwkSocial.Api.Registrars
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
+                    options.ClaimsIdentity.UserIdClaimType = "IdentityId";
                 })
                 .AddEntityFrameworkStores<DataContext>();
 

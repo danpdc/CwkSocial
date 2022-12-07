@@ -33,7 +33,8 @@
         [Route(ApiRoutes.UserProfiles.IdRoute)]
         [ValidateModel]
         [ValidateGuid("id")]
-        public async Task<IActionResult> UpdateUserProfile(string id, UserProfileCreateUpdate updatedProfile, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateUserProfile(string id, UserProfileCreateUpdate updatedProfile, 
+            CancellationToken cancellationToken)
         {
             var command = _mapper.Map<UpdateUserProfileBasicInfo>(updatedProfile);
             command.UserProfileId = Guid.Parse(id);

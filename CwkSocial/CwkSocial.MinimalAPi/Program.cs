@@ -12,9 +12,6 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/weatherforecasts", (IMapper mapper) =>
-{
-    return TypedResults.Ok();
-});
+app.RegisterEndpointDefinitions();
 
 app.Run();
