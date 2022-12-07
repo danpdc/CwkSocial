@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CwkSocial.Application", "Cw
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CwkSocial.Dal", "CwkSocial.Dal\CwkSocial.Dal.csproj", "{E567C2B9-02BE-4EB9-A43B-870A4BFB1DB2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CwkSocial.MinimalAPi", "CwkSocial.MinimalAPi\CwkSocial.MinimalAPi.csproj", "{B1FEF978-539E-41A3-9DCC-A6028BD29540}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{E567C2B9-02BE-4EB9-A43B-870A4BFB1DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E567C2B9-02BE-4EB9-A43B-870A4BFB1DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E567C2B9-02BE-4EB9-A43B-870A4BFB1DB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1FEF978-539E-41A3-9DCC-A6028BD29540}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1FEF978-539E-41A3-9DCC-A6028BD29540}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1FEF978-539E-41A3-9DCC-A6028BD29540}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1FEF978-539E-41A3-9DCC-A6028BD29540}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

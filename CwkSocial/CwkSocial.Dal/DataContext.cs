@@ -19,7 +19,7 @@ namespace CwkSocial.Dal
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<BasicInfo>();
-            modelBuilder.ApplyAllConfigurations();
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DataContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
     }
