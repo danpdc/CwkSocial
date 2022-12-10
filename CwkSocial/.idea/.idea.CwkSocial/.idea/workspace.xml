@@ -8,14 +8,27 @@
     <projectFile profileName="https">CwkSocial.MinimalAPi/CwkSocial.MinimalAPi.csproj</projectFile>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9e4012f4-960e-47e9-b76f-f365f2a5426f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Cwk.Domain/Aggregates/Friendships/FriendRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cwk.Domain/Aggregates/Friendships/Friendship.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cwk.Domain/Aggregates/Friendships/ResponseType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cwk.Domain/Validators/FriendshipsValidators/FriendRequestValidator.cs" afterDir="false" />
+    <list default="true" id="9e4012f4-960e-47e9-b76f-f365f2a5426f" name="Changes" comment="Re-add migration">
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Api/Contracts/Friendships/Requests/FriendRequestCreate.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Api/Contracts/UserProfile/Responses/Friend.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Api/Contracts/UserProfile/Responses/FriendRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Api/Controllers/V1/FriendshipsController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Application/Friendships/Commands/AcceptFriendRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Application/Friendships/Commands/CreateFriendRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Application/Friendships/Commands/RejectFriendRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Application/UserProfiles/Models/FriendDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Application/UserProfiles/Models/FriendRequestDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Application/UserProfiles/Models/UserInfoDto.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CwkSocial.Application/UserProfiles/Models/UserProfileDto.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CwkSocial/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CwkSocial/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cwk.Domain/Exceptions/NotValidException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cwk.Domain/Exceptions/NotValidException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CwkSocial.Api/ApiRoutes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CwkSocial.Api/ApiRoutes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CwkSocial.Api/Contracts/UserProfile/Responses/BasicInformation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CwkSocial.Api/Contracts/UserProfile/Responses/BasicInformation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CwkSocial.Api/Contracts/UserProfile/Responses/UserProfileResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CwkSocial.Api/Contracts/UserProfile/Responses/UserProfileResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CwkSocial.Api/Controllers/V1/UserProfilesController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CwkSocial.Api/Controllers/V1/UserProfilesController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CwkSocial.Application/CwkSocial.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CwkSocial.Application/CwkSocial.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CwkSocial.Application/Enums/ErrorCode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CwkSocial.Application/Enums/ErrorCode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CwkSocial.Application/UserProfiles/Queries/GetUserProfileById.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CwkSocial.Application/UserProfiles/Queries/GetUserProfileById.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CwkSocial.Application/UserProfiles/QueryHandlers/GetUserProfileByIdHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CwkSocial.Application/UserProfiles/QueryHandlers/GetUserProfileByIdHandler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +42,10 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/3520bf5c151bbc5aed94ba6abea697eaaee2b96fe96341613fef02be1cc54/ValidationFailure.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/50d48c72348032cda82923ba4a156c39ab9cba1c5950db22254d2a86ecd812/TypedResults.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d9e77e9a121f8de93ad49a81abbdedd7be266aae6476cb036d864bc76646/ExceptionFilterAttribute.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c1558d44394b3be0f45e5cfe17d84d06c60a9ea79543868636a2edb57c2342/IRequestHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/c7155a2ad5b4273408c55145d0a47dff826a7f8483c5ec69e58b4b86466/ActionFilterAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CwkSocial.Application/Identity/QueryHandlers/GetCurrentUserHandler.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://C:/Users/danpd/source/repos/CwkSocial/CwkSocial/CwkSocial.Dal/Migrations/DataContextModelSnapshot.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -43,13 +58,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\danpd\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\danpd\\AppData\\Roaming\\JetBrains\\Rider2022.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\danpd\\AppData\\Local\\Symbols\\src"
+    ]
   }
-}</component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.CwkSocial.MinimalAPi: https">
+}]]></component>
+  <component name="RunManager" selected=".NET Launch Settings Profile.CwkSocial.Api">
     <configuration name="CwkSocial.Api" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/CwkSocial.Api/CwkSocial.Api.csproj" />
       <option name="LAUNCH_PROFILE_TFM" value="net6.0" />
@@ -153,7 +177,23 @@
       <workItem from="1670438029463" duration="9548000" />
       <workItem from="1670484067444" duration="2504000" />
       <workItem from="1670676825125" duration="558000" />
+      <workItem from="1670677915618" duration="26269000" />
     </task>
+    <task id="LOCAL-00001" summary="Add Migration FriendRequests">
+      <created>1670685806588</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1670685806588</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Re-add migration">
+      <created>1670686963483</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1670686963483</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -171,6 +211,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="Add Migration FriendRequests" />
+    <MESSAGE value="Re-add migration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re-add migration" />
   </component>
 </project>

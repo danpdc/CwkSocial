@@ -25,7 +25,7 @@
             if (response.IsError)
                 return HandleErrorResponse(response.Errors);
             
-            var userProfile = _mapper.Map<UserProfileResponse>(response.Payload);
+            var userProfile = UserProfileResponse.FromUserProfileDto(response.Payload);
             return Ok(userProfile);
         }
 

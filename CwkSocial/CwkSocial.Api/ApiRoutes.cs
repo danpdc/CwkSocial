@@ -9,6 +9,13 @@
             public const string IdRoute = "{id}";
         }
 
+        public static class Friendships
+        {
+            public const string FriendRequestCreate = "friendRequest";
+            public const string FriendRequestAccept = "friendRequest/{friendRequestId}/accept";
+            public const string FriendRequestReject = "friendRequest/{friendRequestId}/reject";
+        }
+
         public static class Posts
         {
             public const string IdRoute = "{id}";

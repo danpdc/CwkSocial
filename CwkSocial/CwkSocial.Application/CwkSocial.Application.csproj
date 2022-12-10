@@ -17,6 +17,7 @@
     <Folder Include="Posts\CommandHandlers\" />
     <Folder Include="Posts\QueryHandlers\" />
     <Folder Include="Posts\Queries\" />
+    <Folder Include="UserProfiles\Extensions" />
   </ItemGroup>
 
   <ItemGroup>
