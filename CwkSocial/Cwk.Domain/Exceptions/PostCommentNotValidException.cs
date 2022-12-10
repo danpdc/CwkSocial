@@ -2,7 +2,7 @@
 
 namespace Cwk.Domain.Exceptions;
 
-public class PostCommentNotValidException : NotValidException
+public class PostCommentNotValidException : DomainModelInvalidException
 {
     internal PostCommentNotValidException() {}
     internal PostCommentNotValidException(string message) : base(message) {}

@@ -1,6 +1,6 @@
 ﻿namespace Cwk.Domain.Exceptions;
 
-public class UserProfileNotValidException : NotValidException
+public class UserProfileNotValidException : DomainModelInvalidException
 {
     internal UserProfileNotValidException() {}
     internal UserProfileNotValidException(string message) : base(message) {}

@@ -1,4 +1,5 @@
-﻿using Cwk.Domain.Aggregates.PostAggregate;
+﻿using Cwk.Domain.Aggregates.Friendships;
+using Cwk.Domain.Aggregates.PostAggregate;
 using Cwk.Domain.Aggregates.UserProfileAggregate;
 using CwkSocial.Dal.Configurations;
 using CwkSocial.Dal.Extensions;
@@ -15,6 +16,8 @@ namespace CwkSocial.Dal
 
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<FriendRequest> FriendRequests { get; set; }
+        public DbSet<Friendship> Friendships { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

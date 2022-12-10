@@ -22,6 +22,63 @@ namespace CwkSocial.Dal.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Cwk.Domain.Aggregates.Friendships.FriendRequest", b =>
+                {
+                    b.Property<Guid>("FriendRequestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateResponded")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateSent")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ReceiverUserProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RequesterUserProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Response")
+                        .HasColumnType("int");
+
+                    b.HasKey("FriendRequestId");
+
+                    b.HasIndex("ReceiverUserProfileId");
+
+                    b.HasIndex("RequesterUserProfileId");
+
+                    b.ToTable("FriendRequests");
+                });
+
+            modelBuilder.Entity("Cwk.Domain.Aggregates.Friendships.Friendship", b =>
+                {
+                    b.Property<Guid>("FriendshipId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("DateEstablished")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("FirstFriendUserProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("FriendshipStatus")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("SecondFriendUserProfileId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("FriendshipId");
+
+                    b.HasIndex("FirstFriendUserProfileId");
+
+                    b.HasIndex("SecondFriendUserProfileId");
+
+                    b.ToTable("Friendships");
+                });
+
             modelBuilder.Entity("Cwk.Domain.Aggregates.PostAggregate.Post", b =>
                 {
                     b.Property<Guid>("PostId")
@@ -318,6 +375,44 @@ namespace CwkSocial.Dal.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Cwk.Domain.Aggregates.Friendships.FriendRequest", b =>
+                {
+                    b.HasOne("Cwk.Domain.Aggregates.UserProfileAggregate.UserProfile", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverUserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cwk.Domain.Aggregates.UserProfileAggregate.UserProfile", "Requester")
+                        .WithMany()
+                        .HasForeignKey("RequesterUserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Requester");
+                });
+
+            modelBuilder.Entity("Cwk.Domain.Aggregates.Friendships.Friendship", b =>
+                {
+                    b.HasOne("Cwk.Domain.Aggregates.UserProfileAggregate.UserProfile", "FirstFriend")
+                        .WithMany()
+                        .HasForeignKey("FirstFriendUserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Cwk.Domain.Aggregates.UserProfileAggregate.UserProfile", "SecondFriend")
+                        .WithMany()
+                        .HasForeignKey("SecondFriendUserProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FirstFriend");
+
+                    b.Navigation("SecondFriend");
                 });
 
             modelBuilder.Entity("Cwk.Domain.Aggregates.PostAggregate.Post", b =>

@@ -1,6 +1,6 @@
 ﻿namespace Cwk.Domain.Exceptions;
 
-public class PostNotValidException : NotValidException
+public class PostNotValidException : DomainModelInvalidException
 {
     internal PostNotValidException() {}
     internal PostNotValidException(string message) : base(message) {}

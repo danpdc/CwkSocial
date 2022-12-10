@@ -9,7 +9,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9e4012f4-960e-47e9-b76f-f365f2a5426f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/CwkSocial.Api/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/CwkSocial.Api/Program.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cwk.Domain/Aggregates/Friendships/FriendRequest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cwk.Domain/Aggregates/Friendships/Friendship.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cwk.Domain/Aggregates/Friendships/ResponseType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cwk.Domain/Validators/FriendshipsValidators/FriendRequestValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CwkSocial/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CwkSocial/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cwk.Domain/Exceptions/NotValidException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Cwk.Domain/Exceptions/NotValidException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CwkSocial.Application/CwkSocial.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CwkSocial.Application/CwkSocial.Application.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +36,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Gr6b38SSthgp5m2Ry2ipSfQxYR" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -142,6 +150,9 @@
       <workItem from="1670144810602" duration="662000" />
       <workItem from="1670180714573" duration="9597000" />
       <workItem from="1670435449428" duration="713000" />
+      <workItem from="1670438029463" duration="9548000" />
+      <workItem from="1670484067444" duration="2504000" />
+      <workItem from="1670676825125" duration="558000" />
     </task>
     <servers />
   </component>
