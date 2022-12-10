@@ -8,9 +8,9 @@ public class FriendRequest
 {
     private FriendRequest() {}
     public Guid FriendRequestId { get; private set; }
-    public Guid RequesterUserProfileId { get; private set; }
+    public Guid? RequesterUserProfileId { get; private set; }
     public UserProfile? Requester { get; private set; }
-    public Guid ReceiverUserProfileId { get; private set; }
+    public Guid? ReceiverUserProfileId { get; private set; }
     public UserProfile? Receiver { get; private set; }
     public DateTime DateSent { get; private set; }
     public DateTime DateResponded { get; private set; }
