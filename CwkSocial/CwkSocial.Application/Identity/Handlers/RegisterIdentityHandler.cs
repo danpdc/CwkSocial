@@ -107,7 +107,7 @@ public class RegisterIdentityHandler : IRequestHandler<RegisterIdentity, Operati
             await _ctx.SaveChangesAsync(cancellationToken);
             return profile;
         }
-        catch (Exception e)
+        catch
         {
             await transaction.RollbackAsync(cancellationToken);
             throw;
